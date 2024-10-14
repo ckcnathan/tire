@@ -39,32 +39,18 @@ end
 [AT, ET, FX, FY, FZ, IA, MX, MZ, N, NFX, NFY, P, RE, RL, RST, SA, SR, TSTC, TSTI, TSTO, V]...
     = ImportRawData( fullfile(pathname, fileid) );
 %%
-% Functions for converting between lbf and N
+% % Functions for converting between lbf and N
+% lbf2N = @(lbf)lbf*4.4482216152605;
+% N2lbf = @(N)N/4.4482216152605;
+% % Functions for converting between kPa and psi
+% psi2kPa = @(psi)psi/0.145037737730217;
+% kPa2psi = @(kPa)kPa*0.145037737730217;
 
-lbf2N = @(lbf)lbf*4.4482216152605;
-N2lbf = @(N)N/4.4482216152605;
-%%
-% Functions for converting between kPa and psi
-
-psi2kPa = @(psi)psi/0.145037737730217;
-kPa2psi = @(kPa)kPa*0.145037737730217;
-%%
-%
-%% Identify data points tested
-% Tires are tested following pre-defined test routines. To calculate the Magic
-% Formula coefficients it is important to identify test points of *normal force,
-% tire pressure and inclination angle*. The correct test values can be identified
-% in the following figures:
-%
-% *Normal force*:
-%
-% You can see in the example below that the tire was tested under different
-% normal forces. The Magic Formula parameters depend on the normal force FZ of
-% the tire, where the normal force should be in Newtons. The values are around
-% 50,100,150,250 pounds (1pound = 4.448N). We save those values to create our
-% normal force bins later.
-%
-% *Figure to identify the Variation of FZ:*
+%% Tire data parser, refer to the TTC guides for how the test is setup.
+% For cornering tests, FY is a function of FZ, IA, P and SA.
+% For Drive/brake, FX is a function of FZ, IA, P, SR and SA.
+% SA from the combined loading tests.
+% 
 
 figure
 plot(ET,FZ,'.');
@@ -92,9 +78,7 @@ title('Variation of Pressure','FontSize',10);
 countsP = movmean(countsP,3);
 [~,locsP] = findpeaks([countsP(2), countsP, countsP(end-1)]);
 %%
-% *Inclination Angle:*
-%
-% The inclination angle is the angle of the wheel relative to the surface.
+% *Inclination Angle (aka Camber):*
 
 figure
 plot(ET,IA);
