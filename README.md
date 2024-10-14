@@ -1,5 +1,5 @@
 # tire
-For testing and fitting tire data from the Tire Testing Consortium (TTC). Script written for Concordia Formula Racing 2023-2024. <br/> 
+For fitting of tire data from the Tire Testing Consortium (TTC). Script written for Concordia Formula Racing 2023-2024. <br/> 
 
 Data parser is based on https://blogs.mathworks.com/student-lounge/2018/08/01/analyzing-tire-data/  <br/>
 Tire data is fitted to a cubic spline, partially based on Bill Cobb's method from the TTC forum.  <br/>
